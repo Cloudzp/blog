@@ -1,7 +1,7 @@
 ---
 title: k8s调度标签的使用
 categories:
-  - kubernetes
+  - 后端
 tags:
   - k8s
   - 调度
