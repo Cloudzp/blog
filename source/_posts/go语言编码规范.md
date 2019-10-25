@@ -1,10 +1,10 @@
 ---
 title: go语言编码规范
 categories:
-  - go
-  - golang
+  - 后端
 tags:
   - 编码指导
+  - go
 comments: false
 abbrlink: 22572
 date: 2019-10-23 22:31:26
