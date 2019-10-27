@@ -9,7 +9,7 @@ tags:
 comments: false
 abbrlink: 599
 date: 2019-10-25 21:42:35
-img:
+img: https://www.nodeapp.cn/assets/nodejs.png
 ---
 ## 安装nodejs
 ```

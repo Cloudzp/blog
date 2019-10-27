@@ -8,7 +8,7 @@ tags:
 comments: false
 abbrlink: 34402
 date: 2019-10-23 22:38:30
-img:
+img: https://d33wubrfki0l68.cloudfront.net/1567471e7c58dc9b7d9c65dcd54e60cbf5870daa/da576/_common-resources/images/flower.png
 ---
 
 ## 1. 如何管理master节点是否可以调度pod？
