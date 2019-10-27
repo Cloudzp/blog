@@ -1,7 +1,8 @@
 # Blog
-Blog是基于hexo以及[hexo-theme-snippet]()主题的一个个人微博网站。
+Blog是基于hexo以及[hexo-theme-snippet](https://github.com/shenliyang/hexo-theme-snippet)主题的一个个人微博网站。
 
-## 写文章
+![](img/blog.png)
+## 一、写文章
 ### 1. 生成文章主题
 ```
 $ hexo new "【文章主题】我是一个demo"
@@ -33,14 +34,14 @@ img:
 - 步骤三
 ```
 
-## 发布
+## 二、本地查看
+```
+$ ./startup.sh
+```
+通过本地的`localhost:4000`访问。
+
+## 三、文章发布
 ```
 $ ./deploy.sh
-_config.yml                                                                                                       100% 2221    58.2KB/s   00:00
-go语言编码规范.md                                                                                           100% 6794   177.6KB/s   00:00
-k8s调度标签的使用.md                                                                                       100% 1920    50.6KB/s   00:00
-npm与node的安装与升级.md                                                                                   100% 1011    26.1KB/s   00:00
-使用kind快速搭建一个k8s-ha集群.md                                                                       100% 2356    59.0KB/s   00:00
-_config.yml                                                                                                       
 deploy success !
 ```
