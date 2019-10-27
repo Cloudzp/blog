@@ -1,6 +1,7 @@
 FROM node:latest
 WORKDIR /blog
-RUN cnpm install --global gulp-cli \
-&& cnpm install gulp --save \
-&& cnpm install -g hexo-cli
+RUN npm install --global cnpm \
+&& cnpm install --global gulp-cli \
+&& cnpm install --global gulp --save \
+&& cnpm install --global hexo-cli
 CMD [ "./startup.sh" ]
