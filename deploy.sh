@@ -16,4 +16,7 @@ scp -C themes/hexo-theme-snippet/_config.yml root@www.cloudzp.club:/root/workdir
 
 scp -C -r themes/hexo-theme-snippet/source root@www.cloudzp.club:/root/workdir/blog/themes/hexo-theme-snippet
 
+### restart server
+ssh  root@www.cloudzp.club docker restart 94c9433f58ec
+
 echo "deploy success !"
