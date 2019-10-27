@@ -1,6 +1,10 @@
 #!/bin/sh
 
 ## deploy to pro
+## remove blog/_config.yml
+ssh   root@www.cloudzp.club rm -rf /root/workdir/blog/_config.yml
+scp -C -r _config.yml   root@www.cloudzp.club:/root/workdir/blog/_config.yml
+
 ### remove old source
 ssh   root@www.cloudzp.club rm -rf /root/workdir/blog/source
 scp -C -r source   root@www.cloudzp.club:/root/workdir/blog
