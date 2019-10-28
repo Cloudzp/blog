@@ -2,6 +2,7 @@
 title: ubuntu上npm与node的安装与升级
 categories:
   - 前端
+  - 工具
 tags:
   - js
   - npm
