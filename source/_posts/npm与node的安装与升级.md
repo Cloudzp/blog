@@ -6,10 +6,10 @@ tags:
   - js
   - npm
   - node
-comments: false
+comments: true
 abbrlink: 599
 date: 2019-10-25 21:42:35
-img: https://www.nodeapp.cn/assets/nodejs.png
+img: /img/nodejs.png
 ---
 ## 安装nodejs
 ```

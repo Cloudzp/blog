@@ -5,8 +5,8 @@ categories:
 tags:
   - kind
   - k8s
-comments: false
-img: https://github.com/kubernetes-sigs/kind/raw/master/logo/logo.png
+comments: true
+img: /img/kind-logo.png
 abbrlink: 34574
 date: 2019-10-27 20:40:40
 ---

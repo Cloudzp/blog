@@ -5,10 +5,10 @@ categories:
 tags:
   - 编码指导
   - go
-comments: false
+comments: true
 abbrlink: 22572
 date: 2019-10-23 22:31:26
-img:
+img: /img/go-logo.png
 ---
 # GO 编码指导
 
