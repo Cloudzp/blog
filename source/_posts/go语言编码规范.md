@@ -1,5 +1,5 @@
 ---
-title: go语言编码规范
+title: 【go语言技能get】:go语言编码规范
 categories:
   - 后端
 tags:

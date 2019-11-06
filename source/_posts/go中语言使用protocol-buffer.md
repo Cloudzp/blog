@@ -1,5 +1,5 @@
 ---
-title: go中语言使用protocol_buffer
+title: 【go语言技能get】：go语言中使用protocol_buffer
 categories:
   - 后端
 tags:
@@ -7,7 +7,7 @@ tags:
   - protocol
 comments: true
 abbrlink: 9283
-date: 2019-11-06 20:43:01
+date: 2019-11-05 21:43:01
 img: /img/timg.jpg
 ---
 
