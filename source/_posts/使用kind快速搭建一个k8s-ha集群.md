@@ -56,6 +56,7 @@ nodes:
 - role: worker
 EFO
 ```
+[ubuntu]kubeadm安裝k8s集群
 
 ```
 $ kind create cluster --name mycluster --config kind.yaml
