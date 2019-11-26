@@ -32,8 +32,8 @@ $ sudo apt-get update
 ![](/illustration/ubuntu-kubernetes-install-error.png)
 
 ````
-$gpg --keyserver keyserver.ubuntu.com --recv-keys 6A030B21BA07F4FB
-$gpg --export --armor 6A030B21BA07F4FB | sudo apt-key add -
+$gpg --keyserver keyserver.ubuntu.com --recv-keys BA07F4FB
+$gpg --export --armor BA07F4FB | sudo apt-key add -
 ````
 
 ## 2. 安装基础组件kubeadm、docker、kubelet
@@ -47,10 +47,10 @@ $ cat > /etc/docker/daemon.json <<EOF
     "max-size": "100m"
   },
   "storage-driver": "overlay2",
-  "registry-mirrors": ["https://09icfnwb.mirror.aliyuncs.com"]
+  "registry-mirrors": ["https://registry.docker-cn.com"]
 }
 EOF
-$ systemctl restart docker
+$ systemctl start docker
 $ docker version
 ````
 Note: 这里配置的镜像仓库为官方镜像仓库，如果追求速度或者拉去镜像报错，可以参考配置使用[阿里镜像加速](https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors)
