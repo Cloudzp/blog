@@ -37,10 +37,13 @@ $ sudo n stable   // 这里也可以切换到指定版本的nodejs e.g. sudo n v
 $ sudo npm install npm@latest -g
 ```
 
+## 安装cnpm, 一般在国内使用`npm`都比较慢，所以可以安装`cnpm`来使用阿里镜像源
+```
+$ npm install -g cnpm --registry=https://registry.npm.taobao.org
+```
+
 ## 安装gulp
 ```
 $ cnpm install --global gulp-cli
 $ gulp --version
 ```
-
-go中语言protocol_buffer的使用
