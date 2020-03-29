@@ -9,11 +9,14 @@ date: 2020-03-28 12:07:54
 img: /img/kubernetes.png
 ---
 
-Pod控制器由master的kube-controller-manager组件提供，常见的此类控制器有ReplicationController、ReplicaSet、Deployment、DaemonSet、StatefulSet、Job和CronJob等，它们分别以不同的方式管理Pod资源对象
+Pod控制器由master的kube-controller-manager组件提供，常见的此类控制器有ReplicationController、ReplicaSet、Deployment、DaemonSet、
+StatefulSet、Job和CronJob等，它们分别以不同的方式管理Pod资源对象
 
 ## 1. ReplicaSet 
 ### 1.1 功能简介
-ReplicaSet（简称RS）是Pod控制器类型的一种实现，用于确保由其管控的Pod对象副本数在任一时刻都能精确满足期望的数量，ReplicaSet控制器资源启动后会查找集群中匹配其标签选择器的Pod资源对象，当前活动对象的数量与期望的数量不吻合时，多则删除，少则通过Pod模板创建以补足，等Pod资源副本数量符合期望值后即进入下一轮和解循环；
+ReplicaSet（简称RS）是Pod控制器类型的一种实现，用于确保由其管控的Pod对象副本数在任一时刻都能精确满足期望的数量，ReplicaSet控制器资源启动后会查
+找集群中匹配其标签选择器的Pod资源对象，当前活动对象的数量与期望的数量不吻合时，多则删除，少则通过Pod模板创建以补足，等Pod资源副本数量符合期望值后即
+进入下一轮和解循环；
 
 ### 1.2 代码简介
 ```go
@@ -107,10 +110,16 @@ func (rsc *ReplicaSetController) syncReplicaSet(key string) error {
 	}
 	return manageReplicasErr
 }
+```
+
+### 1.2 小结：
+对于rs来说并没有什么复杂的业务逻辑，其最核心的功能就是保持pod数与rs期望的replicas一致，多减少增。
+
 
 ## 2. Deployment控制器
 ### 2.1 功能简介
-Deployment（简写为deploy）是Kubernetes控制器的又一种实现，它构建于ReplicaSet控制器之上，可为Pod和ReplicaSet资源提供声明式更新，相比较而言，Pod和ReplicaSet是较低级别的资源，它们很少被直接使用，
+Deployment（简写为deploy）是Kubernetes控制器的又一种实现，它构建于ReplicaSet控制器之上，可为Pod和ReplicaSet资源提供声明式更新，相比较而言
+，Pod和ReplicaSet是较低级别的资源，它们很少被直接使用，
 Deployment控制器资源的主要职责同样是为了保证Pod资源的健康运行，其大部分功能均可通过调用ReplicaSet控制器来实现，同时还增添了部分特性:
 - 事件和状态查看：必要时可以查看Deployment对象升级的详细进度和状态。
 - 回滚：升级操作完成后发现问题时，支持使用回滚机制将应用返回到前一个或由用户指定的历史记录中的版本上。
@@ -120,10 +129,10 @@ Deployment控制器资源的主要职责同样是为了保证Pod资源的健康�
   - Recreate: 即重建更新机制，全面停止、删除旧有的Pod后用新版本替代；
   - RollingUpdate: 即滚动升级机制，逐步替换旧有的Pod至新的版本;
 
-Deployment控制器的滚动更新操作并非在同一个ReplicaSet控制器对象下删除并创建Pod资源，而是将它们分置于两个不同的控制器之下：旧控制器的Pod对象数量不断减少的同时，新控制器的Pod对象数量不断增加，直到旧控制器不再拥有Pod对象，而新控制器的副本数量变得完全符合期望值为止，
-变动的方式和Pod对象的数量范围将通过spec.strategy.rollingUpdate.maxSurge和spec.strategy.rollingUpdate.maxUnavailable两个属性协同进行定义。
+Deployment控制器的滚动更新操作并非在同一个ReplicaSet控制器对象下删除并创建Pod资源，而是将它们分置于两个不同的控制器之下：旧控制器的Pod对象数量
+不断减少的同时，新控制器的Pod对象数量不断增加，直到旧控制器不再拥有Pod对象，而新控制器的副本数量变得完全符合期望值为止，变动的方式和Pod对象的数量范
+围将通过spec.strategy.rollingUpdate.maxSurge和spec.strategy.rollingUpdate.maxUnavailable两个属性协同进行定义。
 - maxSurge：指定升级期间存在的总Pod对象数量最多可超出期望值的个数，其值可以是0或正整数，也可以是一个期望值的百分比；
-```
 
 ###　2.2 代码简介
 ``` go
@@ -141,10 +150,12 @@ type DeploymentController struct {
 }
 
 // 初始化控制器
-func NewDeploymentController(dInformer appsinformers.DeploymentInformer, rsInformer appsinformers.ReplicaSetInformer, podInformer coreinformers.PodInformer, client clientset.Interface) (*DeploymentController, error) {
+func NewDeploymentController(dInformer appsinformers.DeploymentInformer, rsInformer appsinformers.ReplicaSetInformer, 
+podInformer coreinformers.PodInformer, client clientset.Interface) (*DeploymentController, error) {
 	……
 	if client != nil && client.CoreV1().RESTClient().GetRateLimiter() != nil {
-		if err := metrics.RegisterMetricAndTrackRateLimiterUsage("deployment_controller", client.CoreV1().RESTClient().GetRateLimiter()); err != nil {
+		if err := metrics.RegisterMetricAndTrackRateLimiterUsage("deployment_controller", client.CoreV1().RESTClient().
+　　　　　GetRateLimiter()); err != nil {
 			return nil, err
 		}
 	}
@@ -214,7 +225,8 @@ func (dc *DeploymentController) syncDeployment(key string) error {
 
 	everything := metav1.LabelSelector{}
 	if reflect.DeepEqual(d.Spec.Selector, &everything) {
-		dc.eventRecorder.Eventf(d, v1.EventTypeWarning, "SelectingAll", "This deployment is selecting all pods. A non-empty selector is required.")
+		dc.eventRecorder.Eventf(d, v1.EventTypeWarning, "SelectingAll", "This deployment is selecting all pods. 
+　　　　　A non-empty selector is required.")
 		if d.Status.ObservedGeneration < d.Generation {
 			d.Status.ObservedGeneration = d.Generation
 			dc.client.AppsV1().Deployments(d.Namespace).UpdateStatus(d)
@@ -285,7 +297,8 @@ func (dc *DeploymentController) syncDeployment(key string) error {
 // 这种策略的实现比较简单暴力，分为两步：
 // 1. 遍历所有old　rs资源，将pod数都scale为0;
 // 2. 创建一个新的rs，rs中的pod数就是Deployment中的replicas数量；
-func (dc *DeploymentController) rolloutRecreate(d *apps.Deployment, rsList []*apps.ReplicaSet, podMap map[types.UID][]*v1.Pod) error {
+func (dc *DeploymentController) rolloutRecreate(d *apps.Deployment, rsList []*apps.ReplicaSet, 
+　　　podMap map[types.UID][]*v1.Pod) error {
 	
    // 创建一个新的rs，rs中的pod数就是Deployment中的replicas数量；
 	newRS, oldRSs, err := dc.getAllReplicaSetsAndSyncRevision(d, rsList, false)
@@ -381,7 +394,8 @@ func (dc *DeploymentController) rollback(d *apps.Deployment, rsList []*apps.Repl
 			// no-op if the spec matches current deployment's podTemplate.Spec
 			performedRollback, err := dc.rollbackToTemplate(d, rs)
 			if performedRollback && err == nil {
-				dc.emitRollbackNormalEvent(d, fmt.Sprintf("Rolled back deployment %q to revision %d", d.Name, rollbackTo.Revision))
+				dc.emitRollbackNormalEvent(d, fmt.Sprintf("Rolled back deployment %q to revision %d", d.Name, 
+　　　　　　　　　　rollbackTo.Revision))
 			}
 			return err
 		}
@@ -391,6 +405,56 @@ func (dc *DeploymentController) rollback(d *apps.Deployment, rsList []*apps.Repl
 	return dc.updateDeploymentAndClearRollbackTo(d)
 }
 
+
+// rollback 回滚的核心逻辑，主要分为如下几步：
+// 这里有一个很绕的逻辑，其实roolback并没对reversion及rs进行任何更新操作，它只是找到了roollbackto中的那个rs,然后将deploy中的template用rs完全替换，
+// 在下一轮的更新中　DeploymentController　会按照一次正常的升级逻辑去处理这次回滚。
+func (dc *DeploymentController) rollback(d *apps.Deployment, rsList []*apps.ReplicaSet) error {
+　　　// 这里的只是为了拿到allOldRss
+	newRS, allOldRSs, err := dc.getAllReplicaSetsAndSyncRevision(d, rsList, true)
+	if err != nil {
+		return err
+	}
+
+	allRSs := append(allOldRSs, newRS)
+	rollbackTo := getRollbackTo(d)
+	
+    // 如果回滚的版本号为0,则回滚到最近版本后的一个版本 maxRevision-1
+    // 如果要回滚到的版本号为0,则放弃回滚
+	if rollbackTo.Revision == 0 {
+		if rollbackTo.Revision = deploymentutil.LastRevision(allRSs); rollbackTo.Revision == 0 {
+			// If we still can't find the last revision, gives up rollback
+			dc.emitRollbackWarningEvent(d, deploymentutil.RollbackRevisionNotFound, "Unable to find last revision.")
+			// Gives up rollback
+			return dc.updateDeploymentAndClearRollbackTo(d)
+		}
+	}
+
+    // 遍历所有的历史rs找到与rollbackTo的版本号匹配的rs
+	for _, rs := range allRSs {
+		v, err := deploymentutil.Revision(rs)
+		if err != nil {
+			klog.V(4).Infof("Unable to extract revision from deployment's replica set %q: %v", rs.Name, err)
+			continue
+		}
+		if v == rollbackTo.Revision {
+			klog.V(4).Infof("Found replica set %q with desired revision %d", rs.Name, v)
+            // 1. 替换deployment的podTemplate为找到的对应rs的podTemplate 
+            // 2. 去掉annotation中`deprecated.deployment.rollback.to` 头部
+            // 3. 然后更新Deployment信息
+　　　　　　　 // 在下一次getAllReplicaSetsAndSyncRevision调用期间，修订号将增加
+			performedRollback, err := dc.rollbackToTemplate(d, rs)
+			if performedRollback && err == nil {
+				dc.emitRollbackNormalEvent(d, fmt.Sprintf("Rolled back deployment %q to revision %d", d.Name, 
+　　　　　　　　　　rollbackTo.Revision))
+			}
+			return err
+		}
+	}
+	dc.emitRollbackWarningEvent(d, deploymentutil.RollbackRevisionNotFound, "Unable to find the revision to rollback to.")
+	// Gives up rollback
+	return dc.updateDeploymentAndClearRollbackTo(d)
+}
 ```
 
 ### 2.3 实操验证
@@ -488,3 +552,35 @@ maxAvailable=10 * 25%=2 这里百分比向下取整;
 当2个old pod终止完成后　集群中的pod分布是：　5个new pod, 6个old pod= 11个pod ,根据上面的计算方法可以继续计算到会创建2个新的pod终止2个old
 pod,一直循环直到所有的新pod被替换完成；　　　　　　　
 ```
+###　2.4 小结：
+deployment控制器是相当重要的一块内容，里面包含了所有无状态应用的升级更新逻辑，及整个升级过程中的pod新旧版本迭代变换，也是面试中很可能问到的内容，
+主要记住如下重点即可：
+#### 2.4.1 更新策略有两种：
+- Recreate: 先终结掉所有旧版本的pod,等待所有pod全部终结后，重新创建；
+- RollingUpdate:　滚动升级，需要关注两个值：
+　- maxSurge: 可超出设置的replicas的最大数量,可以是int,也可以是百分比，如果是百分在计算过程中会向上取整数；
+　- maxUnavailable: 最大的不可用pod数，同样可以配置为int,也可以配置成百分比，如果是百分比会在计算中向下取整；
+
+#### 2.4.2 记住连个计算公式:
+- 每次创建pod的数量计算公式：　deployment.Spec.Replicas+ maxSurge - currentPodCount
+- 每次删除pod的数量计算公式：　currentPodCount - (deployment.Spec.Replicas-maxUnavailable) - newRsUnavailablePodCount
+
+#### 2.4.3 回滚流程：
+回滚流程中只是修改了Deployment中的podTemplate信息，具体的回滚操作是安装正常的升级策略完成的
+
+#### 2.4.4 常用的命令：
+```
+# 替换镜像
+$ kubectl set image deploy/{NAME} {CONTAINER_NAME}={NEW_IMAGE}
+# 查看所有的历史版本 
+$ kubectl rollout history deploy {NAME}
+# 回滚操作
+$ kubectl rollout undo  deploy {NAME}
+# 查看更新或者回滚的状态
+$ kubectl rollout status deploy {NAME}
+# 暂停升级或者回滚操作
+$ kubectl rollout pause deploy {NAME}
+# 取消暂停操作
+$ kubectl rollout resume deploy {NAME}
+```
+　　
