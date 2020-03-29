@@ -1,7 +1,7 @@
 ---
 title: linux小知识
 categories:
-  - 工具
+  - 后端
 tags:
   - linux
 comments: true
