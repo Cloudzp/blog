@@ -6,6 +6,7 @@ tags:
   - helm
   - ceph
 comments: true
+abbrlink: 11956
 date: 2019-08-12 19:55:54
 img:
 ---

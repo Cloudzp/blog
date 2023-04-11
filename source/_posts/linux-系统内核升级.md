@@ -5,6 +5,7 @@ categories:
 tags:
   - linux
 comments: true
+abbrlink: 31402
 date: 2019-03-22 23:11:57
 img:
 ---

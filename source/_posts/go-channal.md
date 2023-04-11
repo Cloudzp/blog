@@ -5,6 +5,7 @@ categories:
 tags:
   - go
 comments: true
+abbrlink: 8427
 date: 2018-04-19 19:57:35
 img:
 ---

@@ -155,6 +155,10 @@ $ sudo apt update && sudo apt install -y deepin-terminal
 ````
 $ sudo apt install zsh
 ````
+or
+````
+$ sudo yum install zsh
+````
 #### 步骤 2. 安装oh-my-zsh
 - via curl
 ````

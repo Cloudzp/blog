@@ -6,6 +6,7 @@ tags:
   - golang
   - 标签2
 comments: true
+abbrlink: 9629
 date: 2018-10-11 21:53:01
 img:
 ---

@@ -5,6 +5,7 @@ categories:
 tags:
   - mqtt
 comments: true
+abbrlink: 41246
 date: 2018-11-18 11:49:06
 img:
 ---

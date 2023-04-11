@@ -7,6 +7,7 @@ tags:
   - helm
   - k8s
 comments: true
+abbrlink: 19107
 date: 2019-07-10 20:51:54
 img:
 ---

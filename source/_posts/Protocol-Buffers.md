@@ -5,6 +5,7 @@ categories:
 tags:
   - Protocol Buffers
 comments: true
+abbrlink: 15539
 date: 2019-04-18 21:50:18
 img:
 ---

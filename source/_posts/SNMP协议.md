@@ -5,6 +5,7 @@ categories:
 tags:
   - snmp
 comments: true
+abbrlink: 22390
 date: 2019-10-10 23:20:34
 img:
 ---

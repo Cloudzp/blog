@@ -5,8 +5,9 @@ categories:
 tags:
   - k8s
 comments: true
-date: 2020-03-28 12:07:54
 img: /img/kubernetes.png
+abbrlink: 54325
+date: 2020-03-28 12:07:54
 ---
 
 Pod控制器由master的kube-controller-manager组件提供，常见的此类控制器有ReplicationController、ReplicaSet、Deployment、DaemonSet、

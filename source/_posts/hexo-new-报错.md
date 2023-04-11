@@ -5,8 +5,9 @@ categories:
 tags:
   - hexo
 comments: true
+abbrlink: 13778
 date: 2018-09-18 21:11:18
-img: 
+img:
 ---
 
 前段时间换了电脑系统，重新下载了自己的hexo项目，在执行`hexo new "xxx"`过程中报了如下错误；

@@ -8,6 +8,7 @@ tags:
   - k8s
   - jenkins
 comments: true
+abbrlink: 27827
 date: 2019-07-13 22:55:54
 img:
 ---

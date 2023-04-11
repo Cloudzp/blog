@@ -7,6 +7,7 @@ tags:
   - nfs
   - pvc
 comments: true
+abbrlink: 7891
 date: 2019-09-23 22:38:30
 img:
 ---

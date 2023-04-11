@@ -6,6 +6,7 @@ tags:
   - go
   - gin
 comments: true
+abbrlink: 56906
 date: 2018-05-22 14:11:18
 img:
 ---
